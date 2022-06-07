@@ -17,7 +17,7 @@ namespace Imagin.Apps.Desktop
         public TimeSpan Interval
         {
             get => interval;
-            set => this.Change(ref interval, value.Coerce(TimeSpan.MaxValue, TimeSpan.FromSeconds(3)));
+            set => this.Change(ref interval, value.Clamp(TimeSpan.MaxValue, TimeSpan.FromSeconds(3)));
         }
 
         Transitions transition = Transitions.Random;

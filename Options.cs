@@ -63,7 +63,7 @@ namespace Imagin.Apps.Desktop
         };
         [Category(Category.Search)]
         [DisplayName("SearchEngines")]
-        [ItemStyle(ObjectStyle.Expander)]
+        [ItemStyle(ObjectStyle.Default)]
         [ItemType(typeof(SearchEngine))]
         [Style(CollectionStyle.Default)]
         public ObservableCollection<SearchEngine> SearchEngines

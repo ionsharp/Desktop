@@ -16,6 +16,8 @@ $RECYCLE.BIN/
 
 # Other
 .vs
+bin
+obj
 
 # Windows shortcuts
 *.lnk

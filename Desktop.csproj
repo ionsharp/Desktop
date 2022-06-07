@@ -163,16 +163,16 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Color\Core.Color.csproj">
-      <Project>{0a10dbf5-715f-448d-b95f-8c8d7d521e66}</Project>
+    <ProjectReference Include="..\..\Core.Color\Core.Color.csproj">
+      <Project>{64f25c5a-5123-4e9c-b983-bde458d3b171}</Project>
       <Name>Core.Color</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.WPF\Core.WPF\Core.WPF.csproj">
+    <ProjectReference Include="..\..\Core.WPF\Core.WPF\Core.WPF.csproj">
       <Project>{6bd41976-f6f8-461f-a071-fabc002761c9}</Project>
       <Name>Core.WPF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{e27b497d-657b-45dc-af52-152089011cf3}</Project>
+    <ProjectReference Include="..\..\Core\Core.csproj">
+      <Project>{05ea617a-7c26-4699-b41c-1568aabea31a}</Project>
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>

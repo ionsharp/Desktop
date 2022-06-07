@@ -168,14 +168,12 @@
             <DataTemplate DataType="{x:Type local:ColorTile}">
                 <Grid i:XGrid.Columns="*,Auto">
                     <i:ComponentSelector Grid.Column="0"
-                        Alpha="255"
                         Component="{Binding Color.Component}"
                         Model="{Binding Color.Model}"
                         X="{Binding Color.X, Mode=TwoWay}"
                         Y="{Binding Color.Y, Mode=TwoWay}"
                         Z="{Binding Color.Z}"/>
                     <i:ComponentSlider Grid.Column="1"
-                        Alpha="255"
                         Component="{Binding Color.Component}"
                         Model="{Binding Color.Model}"
                         VerticalAlignment="Stretch"

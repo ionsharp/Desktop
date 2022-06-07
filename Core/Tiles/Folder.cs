@@ -20,7 +20,7 @@ namespace Imagin.Apps.Desktop
         public Browser Browser { get; private set; }
 
         BrowserOptions browserOptions = new();
-        [Style(ObjectStyle.Expander)]
+        [Style(ObjectStyle.Default)]
         public BrowserOptions BrowserOptions
         {
             get => browserOptions;

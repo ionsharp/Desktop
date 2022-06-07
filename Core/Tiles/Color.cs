@@ -9,9 +9,9 @@ namespace Imagin.Apps.Desktop
     [Serializable]
     public class ColorTile : Tile
     {
-        ObservableColor color = new(Colors.White);
+        ColorModel color = new(Colors.White);
         [Hidden]
-        public ObservableColor Color
+        public ColorModel Color
         {
             get => color;
             set => this.Change(ref color, value);
