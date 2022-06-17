@@ -9,7 +9,7 @@ namespace Imagin.Apps.Desktop
     [Serializable]
     public class ColorTile : Tile
     {
-        ColorViewModel color = new(Colors.White);
+        ColorViewModel color = new(Colors.White, new());
         [Hidden]
         public ColorViewModel Color
         {

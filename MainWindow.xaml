@@ -167,8 +167,8 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:ColorTile}">
                 <Grid i:XGrid.Columns="*,Auto">
-                    <i:ComponentSelector Grid.Column="0"
-                        Component="{Binding Color.Component}"
+                    <i:ComponentSelector2D Grid.Column="0"
+                        XComponent="{Binding Color.Component}"
                         Model="{Binding Color.Model}"
                         X="{Binding Color.X, Mode=TwoWay}"
                         Y="{Binding Color.Y, Mode=TwoWay}"

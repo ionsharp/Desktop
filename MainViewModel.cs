@@ -134,7 +134,7 @@ public class MainViewModel : MainViewModel<MainWindow>
     public void Draw(DoubleRegion selection)
     {
         var tilePosition
-            = new Point2D(M.NearestFactor(selection.X, Get.Current<Options>().TileSnap), M.NearestFactor(selection.Y, Get.Current<Options>().TileSnap));
+            = new Point2(M.NearestFactor(selection.X, Get.Current<Options>().TileSnap), M.NearestFactor(selection.Y, Get.Current<Options>().TileSnap));
         var tileSize
             = new DoubleSize(M.NearestFactor(selection.Height, Get.Current<Options>().TileSnap), M.NearestFactor(selection.Width, Get.Current<Options>().TileSnap));
 

@@ -1,4 +1,4 @@
-﻿using Imagin.Core.Configuration;
+﻿using Imagin.Core.Config;
 using System;
 
 namespace Imagin.Apps.Desktop

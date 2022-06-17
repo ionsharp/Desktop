@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 namespace Imagin.Apps.Desktop
 {
     [Serializable]
-    public abstract class Tile : BaseUpdate, IChange, ILock, IPoint2D, ISize, ISelect
+    public abstract class Tile : BaseUpdate, IChange, ILock, IPoint2, ISize, ISelect
     {
         [field: NonSerialized]
         public event ChangedEventHandler Changed;
@@ -42,9 +42,9 @@ namespace Imagin.Apps.Desktop
             }
         }
 
-        Point2D position = new(0, 0);
+        Point2 position = new(0, 0);
         [Hidden]
-        public Point2D Position
+        public Point2 Position
         {
             get => position;
             set => this.Change(ref position, value);
