@@ -5,6 +5,7 @@ using Imagin.Core.Controls;
 using Imagin.Core.Data;
 using Imagin.Core.Media;
 using Imagin.Core.Models;
+using Imagin.Core.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -115,7 +116,7 @@ namespace Imagin.Apps.Desktop
         double tileOpacity = 0.8;
         [Category(Category.Tiles)]
         [DisplayName("Opacity")]
-        [Format(RangeFormat.Both)]
+        [MemberSetter(nameof(MemberModel.Format), RangeFormat.Both)]
         [Range(0.0, 1.0, 0.01)]
         public double TileOpacity
         {
@@ -135,7 +136,7 @@ namespace Imagin.Apps.Desktop
         double tileSnap = 16.0;
         [Category(Category.Tiles)]
         [DisplayName("Snap")]
-        [Format(RangeFormat.Both)]
+        [MemberSetter(nameof(MemberModel.Format), RangeFormat.Both)]
         [Range(1.0, 32.0, 1.0)]
         public double TileSnap
         {

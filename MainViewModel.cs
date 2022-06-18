@@ -3,7 +3,7 @@ using Imagin.Core.Analytics;
 using Imagin.Core.Collections.Generic;
 using Imagin.Core.Collections.Serialization;
 using Imagin.Core.Controls;
-using Imagin.Core.Converters;
+using Imagin.Core.Conversion;
 using Imagin.Core.Input;
 using Imagin.Core.Linq;
 using Imagin.Core.Media;
