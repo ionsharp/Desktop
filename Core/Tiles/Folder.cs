@@ -1,6 +1,6 @@
 ﻿using Imagin.Core;
 using Imagin.Core.Controls;
-using Imagin.Core.Data;
+using Imagin.Core.Reflection;
 using Imagin.Core.Storage;
 using System;
 using System.Runtime.CompilerServices;
@@ -20,7 +20,7 @@ namespace Imagin.Apps.Desktop
         public Browser Browser { get; private set; }
 
         BrowserOptions browserOptions = new();
-        [Style(ObjectStyle.Shallow)]
+        [MemberStyle(ObjectStyle.Shallow)]
         public BrowserOptions BrowserOptions
         {
             get => browserOptions;

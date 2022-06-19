@@ -6,7 +6,7 @@ using Imagin.Core.Controls;
 using Imagin.Core.Conversion;
 using Imagin.Core.Input;
 using Imagin.Core.Linq;
-using Imagin.Core.Media;
+using Imagin.Core.Paint;
 using Imagin.Core.Models;
 using Imagin.Core.Numerics;
 using System;

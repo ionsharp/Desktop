@@ -3,7 +3,7 @@ using Imagin.Core.Collections;
 using Imagin.Core.Collections.Serialization;
 using Imagin.Core.Controls;
 using Imagin.Core.Data;
-using Imagin.Core.Media;
+using Imagin.Core.Paint;
 using Imagin.Core.Models;
 using Imagin.Core.Reflection;
 using System;
@@ -64,9 +64,9 @@ namespace Imagin.Apps.Desktop
         };
         [Category(Category.Search)]
         [DisplayName("SearchEngines")]
-        [ItemStyle(ObjectStyle.Shallow)]
-        [ItemType(typeof(SearchEngine))]
-        [Style(CollectionStyle.Default)]
+        [MemberSetter(nameof(MemberModel.ItemStyle), ObjectStyle.Shallow)]
+        [MemberSetter(nameof(MemberModel.ItemType), typeof(SearchEngine))]
+        [MemberStyle(CollectionStyle.Default)]
         public ObservableCollection<SearchEngine> SearchEngines
         {
             get => searchEngines;

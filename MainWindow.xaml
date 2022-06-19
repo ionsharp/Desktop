@@ -165,24 +165,7 @@
                     <i:Clock Margin="5"/>
                 </Viewbox>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type local:ColorTile}">
-                <Grid i:XGrid.Columns="*,Auto">
-                    <i:ComponentSelector2D Grid.Column="0"
-                        XComponent="{Binding Color.Component}"
-                        Model="{Binding Color.Model}"
-                        X="{Binding Color.X, Mode=TwoWay}"
-                        Y="{Binding Color.Y, Mode=TwoWay}"
-                        Z="{Binding Color.Z}"/>
-                    <i:ComponentSlider Grid.Column="1"
-                        Component="{Binding Color.Component}"
-                        Model="{Binding Color.Model}"
-                        VerticalAlignment="Stretch"
-                        Width="32"
-                        X="{Binding Color.X}"
-                        Y="{Binding Color.Y}"
-                        Z="{Binding Color.Z, Mode=TwoWay}"/>
-                </Grid>
-            </DataTemplate>
+            <DataTemplate DataType="{x:Type local:ColorTile}"/>
             <DataTemplate DataType="{x:Type local:CountDownTile}">
                 <Viewbox Stretch="Uniform" StretchDirection="Both">
                     <TextBox
