@@ -98,20 +98,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Tiles\Color.cs" />
+    <Compile Include="Tiles\Color.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Options.cs" />
-    <Compile Include="Core\Screen.cs" />
-    <Compile Include="Core\SearchEngine.cs" />
-    <Compile Include="Core\Tiles\Calendar.cs" />
-    <Compile Include="Core\Tiles\Search.cs" />
-    <Compile Include="Core\Tiles\Tile.cs" />
-    <Compile Include="Core\Tiles\Note.cs" />
-    <Compile Include="Core\Tiles\CountDown.cs" />
-    <Compile Include="Core\Tiles\Clock.cs" />
-    <Compile Include="Core\Tiles\Image.cs" />
-    <Compile Include="Core\Tiles\Folder.cs" />
-    <Compile Include="Core\Tiles\Weather.cs" />
+    <Compile Include="-\Screen.cs" />
+    <Compile Include="-\SearchEngine.cs" />
+    <Compile Include="Tiles\Calendar.cs" />
+    <Compile Include="Tiles\Search.cs" />
+    <Compile Include="Tiles\Tile.cs" />
+    <Compile Include="Tiles\Note.cs" />
+    <Compile Include="Tiles\CountDown.cs" />
+    <Compile Include="Tiles\Clock.cs" />
+    <Compile Include="Tiles\Image.cs" />
+    <Compile Include="Tiles\Folder.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

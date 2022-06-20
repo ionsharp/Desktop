@@ -80,7 +80,7 @@
                     ToolTip="{i:Self Text}"/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:ColorTile}">
-                <TextBox Text="{Binding Color.ActualColor, Converter={x:Static i:ColorToStringConverter.Default}, Mode=TwoWay}">
+                <TextBox Text="{Binding Document.Color.ActualColor, Converter={x:Static i:ColorToStringConverter.Default}, Mode=TwoWay}">
                     <i:XTextBoxBase.Left>
                         <i:DataTemplateCollection>
                             <DataTemplate>
@@ -148,7 +148,6 @@
                     </i:XComboBox.SelectedItemTemplate>
                 </ComboBox>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type local:WeatherTile}"/>
         </i:TypeTemplateSelector>
 
         <i:TypeTemplateSelector x:Key="{x:Static local:MainViewModel.TileContentTemplateSelectorKey}">
@@ -165,7 +164,9 @@
                     <i:Clock Margin="5"/>
                 </Viewbox>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type local:ColorTile}"/>
+            <DataTemplate DataType="{x:Type local:ColorTile}">
+                <i:ColorSelectorView Document="{Binding Document}"/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type local:CountDownTile}">
                 <Viewbox Stretch="Uniform" StretchDirection="Both">
                     <TextBox
@@ -238,7 +239,6 @@
                     i:XTextBoxBase.TextTrimming="CharacterEllipsis"
                     Text="{Binding Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type local:WeatherTile}"/>
         </i:TypeTemplateSelector>
 
         <DataTemplate x:Key="{x:Static local:MainViewModel.TileTemplateKey}">
@@ -285,10 +285,6 @@
                                     <Setter TargetName="ContentPresenter" Property="VerticalAlignment" Value="Center"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{i:IsBinding local:SearchTile}" Value="True">
-                                    <Setter TargetName="ContentPresenter" Property="HorizontalAlignment" Value="Stretch"/>
-                                    <Setter TargetName="ContentPresenter" Property="VerticalAlignment" Value="Stretch"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{i:IsBinding local:WeatherTile}" Value="True">
                                     <Setter TargetName="ContentPresenter" Property="HorizontalAlignment" Value="Stretch"/>
                                     <Setter TargetName="ContentPresenter" Property="VerticalAlignment" Value="Stretch"/>
                                 </DataTrigger>

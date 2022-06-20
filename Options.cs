@@ -3,7 +3,7 @@ using Imagin.Core.Collections;
 using Imagin.Core.Collections.Serialization;
 using Imagin.Core.Controls;
 using Imagin.Core.Data;
-using Imagin.Core.Paint;
+using Imagin.Core.Media;
 using Imagin.Core.Models;
 using Imagin.Core.Reflection;
 using System;

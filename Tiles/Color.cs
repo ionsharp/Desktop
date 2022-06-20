@@ -1,7 +1,6 @@
 ﻿using Imagin.Core;
-using Imagin.Core.Paint;
+using Imagin.Core.Controls;
 using System;
-using System.Windows.Media;
 
 namespace Imagin.Apps.Desktop
 {
@@ -9,12 +8,12 @@ namespace Imagin.Apps.Desktop
     [Serializable]
     public class ColorTile : Tile
     {
-        ColorViewModel color = new(Colors.White, new());
+        ColorDocument document = new ColorDocument(new());
         [Hidden]
-        public ColorViewModel Color
+        public ColorDocument Document
         {
-            get => color;
-            set => this.Change(ref color, value);
+            get => document;
+            set => this.Change(ref document, value);
         }
 
         public ColorTile() : base() { }
