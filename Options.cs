@@ -63,10 +63,9 @@ namespace Imagin.Apps.Desktop
                 @"https://www.bing.com/search?q=") 
         };
         [Category(Category.Search)]
+        [Collection]
         [DisplayName("SearchEngines")]
-        [MemberSetter(nameof(MemberModel.ItemStyle), ObjectStyle.Shallow)]
-        [MemberSetter(nameof(MemberModel.ItemType), typeof(SearchEngine))]
-        [MemberStyle(CollectionStyle.Default)]
+        [Setter(nameof(MemberModel.ItemType), typeof(SearchEngine))]
         public ObservableCollection<SearchEngine> SearchEngines
         {
             get => searchEngines;
@@ -116,7 +115,7 @@ namespace Imagin.Apps.Desktop
         double tileOpacity = 0.8;
         [Category(Category.Tiles)]
         [DisplayName("Opacity")]
-        [MemberSetter(nameof(MemberModel.Format), RangeFormat.Both)]
+        [SliderUpDown]
         [Range(0.0, 1.0, 0.01)]
         public double TileOpacity
         {
@@ -136,7 +135,7 @@ namespace Imagin.Apps.Desktop
         double tileSnap = 16.0;
         [Category(Category.Tiles)]
         [DisplayName("Snap")]
-        [MemberSetter(nameof(MemberModel.Format), RangeFormat.Both)]
+        [SliderUpDown]
         [Range(1.0, 32.0, 1.0)]
         public double TileSnap
         {

@@ -20,6 +20,8 @@ using System.Windows.Input;
 
 namespace Imagin.Apps.Desktop;
 
+public enum TileTypes { Calendar, Clock, Color, CountDown, Folder, Image, Note, Search }
+
 public class MainViewModel : MainViewModel<MainWindow>
 {
     public static readonly ResourceKey<ContextMenu> TileMenuKey = new();
@@ -141,28 +143,52 @@ public class MainViewModel : MainViewModel<MainWindow>
         var tileTypes 
             = XAssembly.GetAssembly(nameof(Desktop)).GetDerivedTypes(typeof(Tile), "Imagin.Apps.Desktop", true, true);
 
-        var window = new ComboWindow("NewTile".Translate(), "Pick a tile...", new ObservableCollection<Type>(tileTypes), tileNameConverter, Core.Controls.SelectionMode.Single, Buttons.ContinueCancel);
-        window.ShowDialog();
+        var t = MemberWindow.ShowDialog("NewTile".Translate(), new { Type = TileTypes.Calendar }, out int result, null, Buttons.ContinueCancel);
 
-        if (XWindow.GetResult(window) == 0)
+        if (result == 0)
         {
-            if (window.SelectedItem is Type tileType)
+            Type tileType = null;
+            switch (t.Type)
             {
-                var tile = Activator.CreateInstance(tileType) as Tile;
-                tile.Position
-                    = tilePosition;
-                tile.Size
-                    = tileSize;
-
-                Screen.Add(tile);
-
-                if (tile is ImageTile imageTile)
-                {
-                    StorageWindow.Show(out string path, "Browse file or folder...", StorageWindowModes.Open, ImageFormats.Readable.Select(i => i.Extension));
-                    imageTile.Path = path;
-                }
+                case TileTypes.Calendar:
+                    tileType = typeof(CalendarTile);
+                    break;
+                case TileTypes.Clock:
+                    tileType = typeof(ClockTile);
+                    break;
+                case TileTypes.Color:
+                    tileType = typeof(ColorTile);
+                    break;
+                case TileTypes.CountDown:
+                    tileType = typeof(CountDownTile);
+                    break;
+                case TileTypes.Folder:
+                    tileType = typeof(FolderTile);
+                    break;
+                case TileTypes.Image:
+                    tileType = typeof(ImageTile);
+                    break;
+                case TileTypes.Note:
+                    tileType = typeof(NoteTile);
+                    break;
+                case TileTypes.Search:
+                    tileType = typeof(SearchTile);
+                    break;
             }
-            else XWindow.GetNotifications(View).Add(new Notification("NewTile".Translate(), new Warning("Nothing was selected..."), 3.Seconds()));
+
+            var tile = Activator.CreateInstance(tileType) as Tile;
+            tile.Position
+                = tilePosition;
+            tile.Size
+                = tileSize;
+
+            Screen.Add(tile);
+
+            if (tile is ImageTile imageTile)
+            {
+                StorageWindow.Show(out string path, "Browse file or folder...", StorageWindowModes.Open, ImageFormats.Readable.Select(i => i.Extension));
+                imageTile.Path = path;
+            }
         }
 
         selection.X = selection.Y = selection.Height = selection.Width = 0;
@@ -257,5 +283,5 @@ public class MainViewModel : MainViewModel<MainWindow>
 
     ICommand showTileOptionsCommand;
     public ICommand ShowTileOptionsCommand 
-        => showTileOptionsCommand ??= new RelayCommand<Tile>(i => PropertyWindow.ShowDialog("Tile", i), i => i != null);
+        => showTileOptionsCommand ??= new RelayCommand<Tile>(i => MemberWindow.ShowDialog("Tile", i), i => i != null);
 }
