@@ -4,8 +4,7 @@ using System.Timers;
 
 namespace Imagin.Apps.Desktop
 {
-    [DisplayName("Clock")]
-    [Serializable]
+    [DisplayName("Clock"), Serializable]
     public class ClockTile : Tile
     {
         string format = "ddd, MMM d, yyyy • h:mm:ss tt";

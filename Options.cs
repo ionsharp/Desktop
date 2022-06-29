@@ -2,15 +2,13 @@
 using Imagin.Core.Collections;
 using Imagin.Core.Collections.Serialization;
 using Imagin.Core.Controls;
-using Imagin.Core.Data;
-using Imagin.Core.Media;
 using Imagin.Core.Models;
+using Imagin.Core.Numerics;
 using Imagin.Core.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Media;
 
 namespace Imagin.Apps.Desktop
 {
@@ -64,7 +62,7 @@ namespace Imagin.Apps.Desktop
         };
         [Category(Category.Search)]
         [Collection]
-        [DisplayName("SearchEngines")]
+        [DisplayName("Search engines")]
         [Setter(nameof(MemberModel.ItemType), typeof(SearchEngine))]
         public ObservableCollection<SearchEngine> SearchEngines
         {
@@ -76,19 +74,17 @@ namespace Imagin.Apps.Desktop
 
         #region Tiles 
 
-        StringColor tileBackground = new StringColor(Colors.White);
-        [Category(Category.Tiles)]
-        [DisplayName("Background")]
-        public StringColor TileBackground
+        ByteVector4 tileBackground = new ByteVector4(255);
+        [Category(Category.Tiles), DisplayName("Background")]
+        public ByteVector4 TileBackground
         {
             get => tileBackground;
             set => this.Change(ref tileBackground, value);
         }
 
-        StringColor tileForeground = new StringColor(Colors.White);
-        [Category(Category.Tiles)]
-        [DisplayName("Foreground")]
-        public StringColor TileForeground
+        ByteVector4 tileForeground = new ByteVector4(255);
+        [Category(Category.Tiles), DisplayName("Foreground")]
+        public ByteVector4 TileForeground
         {
             get => tileForeground;
             set => this.Change(ref tileForeground, value);
@@ -96,7 +92,7 @@ namespace Imagin.Apps.Desktop
 
         HorizontalAlignment tileHeaderAlignment = HorizontalAlignment.Left;
         [Category(Category.Tiles)]
-        [DisplayName("HeaderAlignment")]
+        [DisplayName("Header alignment")]
         public HorizontalAlignment TileHeaderAlignment
         {
             get => tileHeaderAlignment;
@@ -105,7 +101,7 @@ namespace Imagin.Apps.Desktop
 
         TopBottom tileHeaderPlacement = TopBottom.Top;
         [Category(Category.Tiles)]
-        [DisplayName("HeaderPlacement")]
+        [DisplayName("Header placement")]
         public TopBottom TileHeaderPlacement
         {
             get => tileHeaderPlacement;
@@ -125,7 +121,7 @@ namespace Imagin.Apps.Desktop
 
         bool tileOverrideTheme = false;
         [Category(Category.Tiles)]
-        [DisplayName("OverrideTheme")]
+        [DisplayName("Override theme")]
         public bool TileOverrideTheme
         {
             get => tileOverrideTheme;
@@ -148,6 +144,7 @@ namespace Imagin.Apps.Desktop
         #region Window
 
         WindowPlacements windowPlacement = WindowPlacements.None;
+        [DisplayName("Window placement")]
         public WindowPlacements WindowPlacement
         {
             get => windowPlacement;

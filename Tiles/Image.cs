@@ -9,15 +9,28 @@ using System.Xml.Serialization;
 
 namespace Imagin.Apps.Desktop
 {
-    [DisplayName("Image")]
-    [Serializable]
+    [DisplayName("Image"), Serializable]
     public class ImageTile : FolderTile
     {
+        [Hidden]
+        public override BrowserOptions BrowserOptions
+        {
+            get => base.BrowserOptions;
+            set => base.BrowserOptions = value;
+        }
+        
         TimeSpan interval = TimeSpan.FromSeconds(3);
         public TimeSpan Interval
         {
             get => interval;
             set => this.Change(ref interval, value.Clamp(TimeSpan.MaxValue, TimeSpan.FromSeconds(3)));
+        }
+
+        [Hidden]
+        public override bool IsReadOnly
+        {
+            get => base.IsReadOnly;
+            set => base.IsReadOnly = value;
         }
 
         Transitions transition = Transitions.Random;

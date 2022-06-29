@@ -8,29 +8,20 @@ using System.Xml.Serialization;
 
 namespace Imagin.Apps.Desktop
 {
-    [DisplayName("Folder"), Serializable]
-    public class FolderTile : Tile, IFrameworkReference
+    [DisplayName("Console"), Serializable]
+    public class ConsoleTile : Tile, IFrameworkReference
     {
         [field: NonSerialized]
-        public static readonly ReferenceKey<Browser> BrowserReferenceKey = new();
+        public static readonly ReferenceKey<Core.Controls.Console> ConsoleReferenceKey = new();
 
         [Hidden, XmlIgnore]
-        public Browser Browser { get; private set; }
+        public Core.Controls.Console Console { get; private set; }
 
-        BrowserOptions browserOptions = new();
-        [DisplayName("Browser")]
-        public virtual BrowserOptions BrowserOptions
+        ConsoleOptions consoleOptions = new();
+        public ConsoleOptions ConsoleOptions
         {
-            get => browserOptions;
-            set => this.Change(ref browserOptions, value);
-        }
-
-        bool isReadOnly = true;
-        [DisplayName("Read only")]
-        public virtual bool IsReadOnly
-        {
-            get => isReadOnly;
-            set => this.Change(ref isReadOnly, value);
+            get => consoleOptions;
+            set => this.Change(ref consoleOptions, value);
         }
 
         string path = StoragePath.Root;
@@ -48,17 +39,17 @@ namespace Imagin.Apps.Desktop
             set => base.Title = value;
         }
 
-        public FolderTile() : base() { }
+        public ConsoleTile() : base() { }
 
-        public FolderTile(string path) : base()
+        public ConsoleTile(string path) : base()
         {
             Path = path;
         }
 
         void IFrameworkReference.SetReference(IFrameworkKey key, FrameworkElement element)
         {
-            if (key == BrowserReferenceKey)
-                Browser = (Browser)element;
+            if (key == ConsoleReferenceKey)
+                Console = (Core.Controls.Console)element;
         }
 
         public override void OnPropertyChanged([CallerMemberName] string propertyName = "")

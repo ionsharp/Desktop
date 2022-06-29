@@ -4,8 +4,7 @@ using System.Timers;
 
 namespace Imagin.Apps.Desktop
 {
-    [DisplayName("Count down")]
-    [Serializable]
+    [DisplayName("Count down"), Serializable]
     public class CountDownTile : Tile
     {
         DateTime date = DateTime.Now;

@@ -10,8 +10,7 @@ using System.Xml.Serialization;
 
 namespace Imagin.Apps.Desktop
 {
-    [DisplayName("Search")]
-    [Serializable]
+    [DisplayName("Search"), Serializable]
     public class SearchTile : Tile
     {
         [XmlIgnore]

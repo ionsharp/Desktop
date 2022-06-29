@@ -3,8 +3,7 @@ using System;
 
 namespace Imagin.Apps.Desktop
 {
-    [DisplayName("Calendar")]
-    [Serializable]
+    [DisplayName("Calendar"), Serializable]
     public class CalendarTile : Tile
     {
         DateTime date = DateTime.Now;

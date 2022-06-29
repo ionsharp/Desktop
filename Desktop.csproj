@@ -93,19 +93,24 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\WpfAnimatedGif.2.0.2\lib\net40\WpfAnimatedGif.dll</HintPath>
+    </Reference>
     <Reference Include="XAMLMarkupExtensions, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\XAMLMarkupExtensions.1.2.2\lib\net40\XAMLMarkupExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="-\TileTypes.cs" />
     <Compile Include="Tiles\Color.cs" />
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="-\Screen.cs" />
     <Compile Include="-\SearchEngine.cs" />
     <Compile Include="Tiles\Calendar.cs" />
+    <Compile Include="Tiles\Console.cs" />
     <Compile Include="Tiles\Search.cs" />
-    <Compile Include="Tiles\Tile.cs" />
+    <Compile Include="Tiles\-Base.cs" />
     <Compile Include="Tiles\Note.cs" />
     <Compile Include="Tiles\CountDown.cs" />
     <Compile Include="Tiles\Clock.cs" />

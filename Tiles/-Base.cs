@@ -3,7 +3,6 @@ using Imagin.Core.Input;
 using Imagin.Core.Numerics;
 using System;
 using System.Runtime.CompilerServices;
-using System.Windows;
 using System.Windows.Input;
 using System.Xml.Serialization;
 
@@ -22,6 +21,7 @@ namespace Imagin.Apps.Desktop
         public event SelectedEventHandler Selected;
 
         bool isLocked = false;
+        [DisplayName("Lock"), Feature, ToggleButton]
         public bool IsLocked
         {
             get => isLocked;

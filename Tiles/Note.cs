@@ -6,12 +6,11 @@ using System.Xml.Serialization;
 
 namespace Imagin.Apps.Desktop
 {
-    [DisplayName("Note")]
-    [Serializable]
+    [DisplayName("Note"), Serializable]
     public class NoteTile : Tile
     {
         string fontFamily = "Calibri";
-        [DisplayName("FontFamily"), XmlIgnore]
+        [DisplayName("Font family"), XmlIgnore]
         public FontFamily FontFamily
         {
             get => new(fontFamily);
@@ -19,7 +18,7 @@ namespace Imagin.Apps.Desktop
         }
 
         double fontSize = 16.0;
-        [DisplayName("FontSize")]
+        [DisplayName("Font size")]
         public double FontSize
         {
             get => fontSize;

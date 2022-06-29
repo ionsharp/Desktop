@@ -90,6 +90,10 @@
                     </i:XTextBoxBase.Left>
                 </TextBox>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type local:ConsoleTile}">
+                <i:AddressBox i:XExplorer.Path="{i:TwoWay Path}"
+                    Refreshed="AddressBox_Refreshed"/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type local:CountDownTile}">
                 <TextBox
                     i:XTextBox.CanLabel="True"
@@ -166,6 +170,14 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:ColorTile}">
                 <i:ColorSelectorView Document="{Binding Document}"/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type local:ConsoleTile}">
+                <i:Console 
+                    Background="Transparent"
+                    BorderThickness="0"
+                    i:XElement.Reference="{Binding}"
+                    i:XElement.ReferenceKey="{x:Static local:ConsoleTile.ConsoleReferenceKey}"
+                    i:XExplorer.Path="{Binding Path, Mode=TwoWay}"/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:CountDownTile}">
                 <Viewbox Stretch="Uniform" StretchDirection="Both">
@@ -268,6 +280,10 @@
                                     <Setter TargetName="ContentPresenter" Property="HorizontalAlignment" Value="{i:Options TileHeaderAlignment}"/>
                                     <Setter TargetName="ContentPresenter" Property="VerticalAlignment" Value="Center"/>
                                 </DataTrigger>
+                                <DataTrigger Binding="{i:IsBinding local:ConsoleTile}" Value="True">
+                                    <Setter TargetName="ContentPresenter" Property="HorizontalAlignment" Value="Stretch"/>
+                                    <Setter TargetName="ContentPresenter" Property="VerticalAlignment" Value="Stretch"/>
+                                </DataTrigger>
                                 <DataTrigger Binding="{i:IsBinding local:CountDownTile}" Value="True">
                                     <Setter TargetName="ContentPresenter" Property="HorizontalAlignment" Value="{i:Options TileHeaderAlignment}"/>
                                     <Setter TargetName="ContentPresenter" Property="VerticalAlignment" Value="Center"/>
@@ -312,9 +328,9 @@
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{i:Options TileOverrideTheme}" Value="True">
                     <Setter TargetName="FillElement" 
-                        Property="Fill" Value="{i:Options TileBackground.Brush}"/>
+                        Property="Fill" Value="{i:Options TileBackground, Converter={x:Static i:ByteVector4ToSolidColorBrushConverter.Default}}"/>
                     <Setter TargetName="HeaderedContentControl" 
-                        Property="Foreground" Value="{i:Options TileForeground.Brush}"/>
+                        Property="Foreground" Value="{i:Options TileForeground, Converter={x:Static i:ByteVector4ToSolidColorBrushConverter.Default}}"/>
                 </DataTrigger> 
                 <DataTrigger Binding="{i:Options TileOverrideTheme}" Value="False">
                     <Setter TargetName="FillElement" Property="Fill" Value="{i:ThemeKey ActualKey=WindowBackground}"/>

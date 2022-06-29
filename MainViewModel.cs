@@ -19,8 +19,6 @@ using System.Windows.Input;
 
 namespace Imagin.Apps.Desktop;
 
-public enum TileTypes { Calendar, Clock, Color, CountDown, Folder, Image, Note, Search }
-
 public class MainViewModel : MainViewModel<MainWindow>
 {
     public static readonly ResourceKey<ContextMenu> TileMenuKey = new();
@@ -132,6 +130,16 @@ public class MainViewModel : MainViewModel<MainWindow>
     IValueConverter tileNameConverter
         => new SimpleConverter<Type, string>(i => i.GetAttribute<DisplayNameAttribute>().DisplayName);
 
+    internal class TileOption : Base
+    {
+        TileTypes type = TileTypes.Calendar;
+        public TileTypes Type
+        {
+            get => type;
+            set => this.Change(ref type, value);
+        }
+    }
+
     public void Draw(DoubleRegion selection)
     {
         var tilePosition
@@ -142,12 +150,12 @@ public class MainViewModel : MainViewModel<MainWindow>
         var tileTypes 
             = XAssembly.GetAssembly(nameof(Desktop)).GetDerivedTypes(typeof(Tile), "Imagin.Apps.Desktop", true, true);
 
-        var t = MemberWindow.ShowDialog("NewTile".Translate(), new { Type = TileTypes.Calendar }, out int result, null, Buttons.ContinueCancel);
+        var option = MemberWindow.ShowDialog("NewTile".Translate(), new TileOption(), out int result, i => { i.GroupName = MemberGroupName.None; i.HeaderVisibility = Visibility.Collapsed; }, Buttons.ContinueCancel);
 
         if (result == 0)
         {
             Type tileType = null;
-            switch (t.Type)
+            switch (option.Type)
             {
                 case TileTypes.Calendar:
                     tileType = typeof(CalendarTile);
@@ -185,7 +193,7 @@ public class MainViewModel : MainViewModel<MainWindow>
 
             if (tile is ImageTile imageTile)
             {
-                StorageWindow.Show(out string path, "Browse file or folder...", StorageWindowModes.Open, ImageFormats.Readable.Select(i => i.Extension));
+                StorageWindow.Show(out string path, "Browse file or folder...", StorageWindowModes.Open, ImageFormat.GetReadable().Select(i => i.Extension));
                 imageTile.Path = path;
             }
         }
@@ -282,5 +290,5 @@ public class MainViewModel : MainViewModel<MainWindow>
 
     ICommand showTileOptionsCommand;
     public ICommand ShowTileOptionsCommand 
-        => showTileOptionsCommand ??= new RelayCommand<Tile>(i => MemberWindow.ShowDialog("Tile", i), i => i != null);
+        => showTileOptionsCommand ??= new RelayCommand<Tile>(i => MemberWindow.ShowDialog("Tile options", i, out int _, j => j.HeaderVisibility = Visibility.Collapsed, Buttons.Done), i => i != null);
 }

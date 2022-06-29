@@ -4,8 +4,7 @@ using System;
 
 namespace Imagin.Apps.Desktop
 {
-    [DisplayName("Color")]
-    [Serializable]
+    [DisplayName("Color"), Serializable]
     public class ColorTile : Tile
     {
         ColorDocument document = new ColorDocument(new());
