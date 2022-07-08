@@ -61,7 +61,7 @@ namespace Imagin.Apps.Desktop
                 @"https://www.bing.com/search?q=") 
         };
         [Category(Category.Search)]
-        [Collection]
+        [Object]
         [DisplayName("Search engines")]
         [Setter(nameof(MemberModel.ItemType), typeof(SearchEngine))]
         public ObservableCollection<SearchEngine> SearchEngines
