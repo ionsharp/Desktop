@@ -80,7 +80,7 @@
                     ToolTip="{i:Self Text}"/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:ColorTile}">
-                <TextBox Text="{Binding Document.Color.ActualColor, Converter={x:Static i:ColorToStringConverter.Default}, Mode=TwoWay}">
+                <TextBox Text="{Binding Document.NewColor, Converter={x:Static i:ColorToStringConverter.Default}, Mode=TwoWay}">
                     <i:XTextBoxBase.Left>
                         <i:DataTemplateCollection>
                             <DataTemplate>

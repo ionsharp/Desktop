@@ -7,7 +7,7 @@ namespace Imagin.Apps.Desktop
     [DisplayName("Color"), Serializable]
     public class ColorTile : Tile
     {
-        ColorDocument document = new ColorDocument(new());
+        ColorDocument document = new();
         [Hidden]
         public ColorDocument Document
         {
