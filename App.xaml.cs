@@ -1,23 +1,22 @@
 ﻿using Imagin.Core.Config;
 using System;
 
-namespace Imagin.Apps.Desktop
+namespace Imagin.Apps.Desktop;
+
+public partial class App : SingleApplication
 {
-    public partial class App : SingleApplication
+    public override ApplicationLink Link => new ApplicationLink<MainWindow, MainViewModel, Options>();
+
+    [STAThread]
+    public static void Main(params string[] Arguments)
     {
-        public override ApplicationProperties Properties => new ApplicationProperties<MainWindow, MainViewModel, Options>();
-
-        [STAThread]
-        public static void Main(params string[] Arguments)
+        if (SingleInstance<App>.InitializeAsFirstInstance(nameof(Desktop)))
         {
-            if (SingleInstance<App>.InitializeAsFirstInstance(nameof(Desktop)))
-            {
-                var App = new App();
-                App.InitializeComponent();
-                App.Run();
+            var App = new App();
+            App.InitializeComponent();
+            App.Run();
 
-                SingleInstance<App>.Cleanup();
-            }
+            SingleInstance<App>.Cleanup();
         }
     }
 }

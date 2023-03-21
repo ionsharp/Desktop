@@ -1,19 +1,13 @@
 ﻿using Imagin.Core;
 using System;
 
-namespace Imagin.Apps.Desktop
-{
-    [DisplayName("Calendar"), Serializable]
-    public class CalendarTile : Tile
-    {
-        DateTime date = DateTime.Now;
-        [Hidden]
-        public DateTime Date
-        {
-            get => date;
-            set => this.Change(ref date, value);
-        }
+namespace Imagin.Apps.Desktop;
 
-        public CalendarTile() : base() { }
-    }
+[Image(SmallImages.Calendar), Name("Calendar"), Serializable, TileType(TileTypes.Calendar)]
+public class CalendarTile : Tile
+{
+    [Hide]
+    public DateTime Date { get => Get(DateTime.Now); set => Set(value); }
+
+    public CalendarTile() : base() { }
 }

@@ -2,74 +2,53 @@
 using Imagin.Core.Controls;
 using Imagin.Core.Storage;
 using System;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Xml.Serialization;
 
-namespace Imagin.Apps.Desktop
+namespace Imagin.Apps.Desktop;
+
+[Image(SmallImages.Folder), Name("Folder"), Serializable, TileType(TileTypes.Folder)]
+public class FolderTile : Tile, IElementReference
 {
-    [DisplayName("Folder"), Serializable]
-    public class FolderTile : Tile, IFrameworkReference
+    [field: NonSerialized]
+    public static readonly ReferenceKey<Browser> BrowserReferenceKey = new();
+
+    [Hide, XmlIgnore]
+    public Browser Browser { get; private set; }
+
+    [Name("Folder options"), XmlIgnore]
+    public virtual FolderOptions FolderOptions { get => Get(new FolderOptions()); set => Set(value); }
+
+    [Name("Read only")]
+    public virtual bool IsReadOnly { get => Get(true); set => Set(value); }
+
+    [Hide]
+    public string Path { get => Get(StoragePath.Root); set => Set(value); }
+
+    [Hide, XmlIgnore]
+    public override string Title { get => base.Title; set => base.Title = value; }
+
+    public FolderTile() : base() { }
+
+    public FolderTile(string path) : base()
     {
-        [field: NonSerialized]
-        public static readonly ReferenceKey<Browser> BrowserReferenceKey = new();
+        Path = path;
+    }
 
-        [Hidden, XmlIgnore]
-        public Browser Browser { get; private set; }
+    void IElementReference.SetReference(IElementKey key, FrameworkElement element)
+    {
+        if (key == BrowserReferenceKey)
+            Browser = (Browser)element;
+    }
 
-        BrowserOptions browserOptions = new();
-        [DisplayName("Browser")]
-        public virtual BrowserOptions BrowserOptions
+    public override void OnPropertyChanged(PropertyEventArgs e)
+    {
+        base.OnPropertyChanged(e);
+        switch (e.PropertyName)
         {
-            get => browserOptions;
-            set => this.Change(ref browserOptions, value);
-        }
-
-        bool isReadOnly = true;
-        [DisplayName("Read only")]
-        public virtual bool IsReadOnly
-        {
-            get => isReadOnly;
-            set => this.Change(ref isReadOnly, value);
-        }
-
-        string path = StoragePath.Root;
-        [Hidden]
-        public string Path
-        {
-            get => path;
-            set => this.Change(ref path, value);
-        }
-
-        [Hidden, XmlIgnore]
-        public override string Title
-        {
-            get => base.Title;
-            set => base.Title = value;
-        }
-
-        public FolderTile() : base() { }
-
-        public FolderTile(string path) : base()
-        {
-            Path = path;
-        }
-
-        void IFrameworkReference.SetReference(IFrameworkKey key, FrameworkElement element)
-        {
-            if (key == BrowserReferenceKey)
-                Browser = (Browser)element;
-        }
-
-        public override void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            base.OnPropertyChanged(propertyName);
-            switch (propertyName)
-            {
-                case nameof(Path):
-                    OnChanged();
-                    break;
-            }
+            case nameof(Path):
+                OnChanged();
+                break;
         }
     }
 }

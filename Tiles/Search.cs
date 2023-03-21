@@ -4,60 +4,48 @@ using Imagin.Core.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Xml.Serialization;
 
-namespace Imagin.Apps.Desktop
+namespace Imagin.Apps.Desktop;
+
+[Image(SmallImages.Search), Name("Search"), Serializable, TileType(TileTypes.Search)]
+public class SearchTile : Tile
 {
-    [DisplayName("Search"), Serializable]
-    public class SearchTile : Tile
+    [XmlIgnore]
+    IList<SearchEngine> SearchEngines => Current.Get<Options>().SearchEngines;
+
+    [XmlIgnore]
+    string Url => $"{SearchEngines[SearchEngine].Value}{Text}";
+
+    ///
+
+    [Hide]
+    public int SearchEngine { get => Get(0); set => Set(value); }
+
+    [Hide]
+    public string Text { get => Get(""); set => Set(value); }
+
+    ///
+
+    public SearchTile() : base() { }
+
+    ///
+
+    public override void OnPropertyChanged(PropertyEventArgs e)
     {
-        [XmlIgnore]
-        IList<SearchEngine> SearchEngines => Get.Current<Options>().SearchEngines;
-
-        [XmlIgnore]
-        string Url => $"{SearchEngines[searchEngine].Url}{text}";
-
-        //...
-
-        int searchEngine = 0;
-        [Hidden]
-        public int SearchEngine
+        base.OnPropertyChanged(e);
+        switch (e.PropertyName)
         {
-            get => searchEngine;
-            set => this.Change(ref searchEngine, value);
+            case nameof(SearchEngine):
+            case nameof(Text):
+                OnChanged();
+                break;
         }
-
-        string text;
-        [Hidden]
-        public string Text
-        {
-            get => text;
-            set => this.Change(ref text, value);
-        }
-
-        //...
-
-        public SearchTile() : base() { }
-
-        //...
-
-        public override void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            base.OnPropertyChanged(propertyName);
-            switch (propertyName)
-            {
-                case nameof(SearchEngine):
-                case nameof(Text):
-                    OnChanged();
-                    break;
-            }
-        }
-
-        [field: NonSerialized]
-        ICommand searchCommand;
-        [Hidden, XmlIgnore]
-        public ICommand SearchCommand => searchCommand ??= new RelayCommand(() => Process.Start(new ProcessStartInfo(Url)), () => searchEngine >= 0 && searchEngine < SearchEngines.Count && !text.NullOrEmpty());
     }
+
+    [field: NonSerialized]
+    ICommand searchCommand;
+    [Hide, XmlIgnore]
+    public ICommand SearchCommand => searchCommand ??= new RelayCommand(() => Process.Start(new ProcessStartInfo(Url)), () => SearchEngine >= 0 && SearchEngine < SearchEngines.Count && !Text.NullOrEmpty());
 }

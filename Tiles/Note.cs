@@ -1,49 +1,40 @@
 ﻿using Imagin.Core;
+using Imagin.Core.Media;
 using System;
-using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml.Serialization;
 
-namespace Imagin.Apps.Desktop
+namespace Imagin.Apps.Desktop;
+
+[Image(SmallImages.Note), Name("Note"), Serializable, TileType(TileTypes.Note)]
+public class NoteTile : Tile
 {
-    [DisplayName("Note"), Serializable]
-    public class NoteTile : Tile
+    enum Category { Font }
+
+    [Category(Category.Font), Name("Font alignment"), XmlIgnore]
+    public TextAlignment FontAlignment { get => GetFromString(TextAlignment.Left); set => SetFromString(value); }
+
+    [Category(Category.Font), Name("Font family"), XmlIgnore]
+    public FontFamily FontFamily { get => GetFrom(new FontFamily("Calibri"), Core.Conversion.Converter.Get<FontFamilyToStringConverter>()); set => SetFrom(value, Core.Conversion.Converter.Get<FontFamilyToStringConverter>()); }
+
+    [Category(Category.Font), Name("Font size")]
+    public double FontSize { get => Get(16.0); set => Set(value); }
+
+    [Hide]
+    public string Text { get => Get(""); set => Set(value); }
+
+    public NoteTile() : base() { }
+
+    public override void OnPropertyChanged(PropertyEventArgs e)
     {
-        string fontFamily = "Calibri";
-        [DisplayName("Font family"), XmlIgnore]
-        public FontFamily FontFamily
+        base.OnPropertyChanged(e);
+        switch (e.PropertyName)
         {
-            get => new(fontFamily);
-            set => this.Change(ref fontFamily, value.Source);
-        }
-
-        double fontSize = 16.0;
-        [DisplayName("Font size")]
-        public double FontSize
-        {
-            get => fontSize;
-            set => this.Change(ref fontSize, value);
-        }
-
-        string text;
-        [Hidden]
-        public string Text
-        {
-            get => text;
-            set => this.Change(ref text, value);
-        }
-
-        public NoteTile() : base() { }
-
-        public override void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            base.OnPropertyChanged(propertyName);
-            switch (propertyName)
-            {
-                case nameof(Text):
-                    OnChanged();
-                    break;
-            }
+            case nameof(Text):
+                OnChanged();
+                break;
         }
     }
 }

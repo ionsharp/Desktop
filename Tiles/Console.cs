@@ -2,65 +2,50 @@
 using Imagin.Core.Controls;
 using Imagin.Core.Storage;
 using System;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Xml.Serialization;
 
-namespace Imagin.Apps.Desktop
+namespace Imagin.Apps.Desktop;
+
+[Image(SmallImages.Console), Name("Console"), Serializable, TileType(TileTypes.Console)]
+public class ConsoleTile : Tile, IElementReference
 {
-    [DisplayName("Console"), Serializable]
-    public class ConsoleTile : Tile, IFrameworkReference
+    [field: NonSerialized]
+    public static readonly ReferenceKey<ConsoleBox> ConsoleReferenceKey = new();
+
+    [Hide, XmlIgnore]
+    public ConsoleBox Console { get; private set; }
+
+    [Name("Console"), XmlIgnore]
+    public ConsoleOptions ConsoleOptions { get => Get(new ConsoleOptions()); set => Set(value); }
+
+    [Hide]
+    public string Path { get => Get(StoragePath.Root); set => Set(value); }
+
+    [Hide, XmlIgnore]
+    public override string Title { get => base.Title; set => base.Title = value; }
+
+    public ConsoleTile() : base() { }
+
+    public ConsoleTile(string path) : base()
     {
-        [field: NonSerialized]
-        public static readonly ReferenceKey<Core.Controls.Console> ConsoleReferenceKey = new();
+        Path = path;
+    }
 
-        [Hidden, XmlIgnore]
-        public Core.Controls.Console Console { get; private set; }
+    void IElementReference.SetReference(IElementKey key, FrameworkElement element)
+    {
+        if (key == ConsoleReferenceKey)
+            Console = (ConsoleBox)element;
+    }
 
-        ConsoleOptions consoleOptions = new();
-        public ConsoleOptions ConsoleOptions
+    public override void OnPropertyChanged(PropertyEventArgs e)
+    {
+        base.OnPropertyChanged(e);
+        switch (e.PropertyName)
         {
-            get => consoleOptions;
-            set => this.Change(ref consoleOptions, value);
-        }
-
-        string path = StoragePath.Root;
-        [Hidden]
-        public string Path
-        {
-            get => path;
-            set => this.Change(ref path, value);
-        }
-
-        [Hidden, XmlIgnore]
-        public override string Title
-        {
-            get => base.Title;
-            set => base.Title = value;
-        }
-
-        public ConsoleTile() : base() { }
-
-        public ConsoleTile(string path) : base()
-        {
-            Path = path;
-        }
-
-        void IFrameworkReference.SetReference(IFrameworkKey key, FrameworkElement element)
-        {
-            if (key == ConsoleReferenceKey)
-                Console = (Core.Controls.Console)element;
-        }
-
-        public override void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            base.OnPropertyChanged(propertyName);
-            switch (propertyName)
-            {
-                case nameof(Path):
-                    OnChanged();
-                    break;
-            }
+            case nameof(Path):
+                OnChanged();
+                break;
         }
     }
 }

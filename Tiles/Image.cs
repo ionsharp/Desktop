@@ -1,62 +1,48 @@
 ﻿using Imagin.Core;
 using Imagin.Core.Controls;
 using Imagin.Core.Input;
-using Imagin.Core.Linq;
+using Imagin.Core.Storage;
 using System;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Xml.Serialization;
 
-namespace Imagin.Apps.Desktop
+namespace Imagin.Apps.Desktop;
+
+[Image(SmallImages.Image), Name("Image"), Serializable, TileType(TileTypes.Image)]
+public class ImageTile : Tile
 {
-    [DisplayName("Image"), Serializable]
-    public class ImageTile : FolderTile
+    [Category(DefaultCategory.General), RightText("seconds")]
+    public double Interval { get => Get(5.0); set => Set(value); }
+
+    public virtual string Path { get => Get(StoragePath.Root); set => Set(value); }
+
+    [Hide, XmlIgnore]
+    public override string Title { get => base.Title; set => base.Title = value; }
+
+    [Category(DefaultCategory.General), XmlIgnore]
+    public Stretch Stretch { get => Get(Stretch.UniformToFill); set => Set(value); }
+
+    [Category(DefaultCategory.General)]
+    public Transitions Transition { get => Get(Transitions.Random); set => Set(value); }
+
+    public ImageTile() : base() { }
+
+    public override void OnPropertyChanged(PropertyEventArgs e)
     {
-        [Hidden]
-        public override BrowserOptions BrowserOptions
+        base.OnPropertyChanged(e);
+        switch (e.PropertyName)
         {
-            get => base.BrowserOptions;
-            set => base.BrowserOptions = value;
+            case nameof(Interval):
+            case nameof(Path):
+            case nameof(Transition):
+                OnChanged();
+                break;
         }
-        
-        TimeSpan interval = TimeSpan.FromSeconds(3);
-        public TimeSpan Interval
-        {
-            get => interval;
-            set => this.Change(ref interval, value.Clamp(TimeSpan.MaxValue, TimeSpan.FromSeconds(3)));
-        }
-
-        [Hidden]
-        public override bool IsReadOnly
-        {
-            get => base.IsReadOnly;
-            set => base.IsReadOnly = value;
-        }
-
-        Transitions transition = Transitions.Random;
-        public Transitions Transition
-        {
-            get => transition;
-            set => this.Change(ref transition, value);
-        }
-
-        public ImageTile() : base() { }
-
-        public override void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            base.OnPropertyChanged(propertyName);
-            switch (propertyName)
-            {
-                case nameof(Interval):
-                case nameof(Transition):
-                    OnChanged();
-                    break;
-            }
-        }
-
-        [field: NonSerialized]
-        ICommand transitionCommand;
-        [Hidden, XmlIgnore]
-        public ICommand TransitionCommand => transitionCommand ??= new RelayCommand<object>(i => Transition = (Transitions)i, i => i is Transitions);
     }
+
+    [field: NonSerialized]
+    ICommand transitionCommand;
+    [Hide, XmlIgnore]
+    public ICommand TransitionCommand => transitionCommand ??= new RelayCommand<object>(i => Transition = (Transitions)i, i => i is Transitions);
 }

@@ -1,20 +1,15 @@
 ﻿using Imagin.Core;
 using Imagin.Core.Controls;
 using System;
+using System.Xml.Serialization;
 
-namespace Imagin.Apps.Desktop
+namespace Imagin.Apps.Desktop;
+
+[Image(SmallImages.Color), Name("Color"), Serializable, TileType(TileTypes.Color)]
+public class ColorTile : Tile
 {
-    [DisplayName("Color"), Serializable]
-    public class ColorTile : Tile
-    {
-        ColorDocument document = new();
-        [Hidden]
-        public ColorDocument Document
-        {
-            get => document;
-            set => this.Change(ref document, value);
-        }
+    [Hide, XmlIgnore]
+    public ColorDocument Document { get => Get(new ColorDocument()); set => Set(value); }
 
-        public ColorTile() : base() { }
-    }
+    public ColorTile() : base() { }
 }
